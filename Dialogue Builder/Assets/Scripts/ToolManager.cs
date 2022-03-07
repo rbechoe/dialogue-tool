@@ -33,10 +33,14 @@ public class ToolManager : MonoBehaviour
             NodeObject outputObj = outputNode.GetComponent<NodeObject>();
 
             inputObj.inputObject = outputObj;
+            inputObj.SetInputID(outputObj.GetID());
             outputObj.outputObject = inputObj;
+            outputObj.SetOutputID(inputObj.GetID());
 
             inputNode = null;
             outputNode = null;
+
+            UpdateSelectedNodes();
         }
     }
 
@@ -86,6 +90,7 @@ public class ToolManager : MonoBehaviour
     public void UpdateNodeInformation()
     {
         NodeObject nodeObj = activeNode.GetComponent<NodeObject>();
+        nodeName.text = nodeEditName.text;
         nodeObj.SetName(nodeEditName.text);
         nodeObj.SetText(nodeEditText.text);
     }
