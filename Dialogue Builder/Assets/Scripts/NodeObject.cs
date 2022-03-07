@@ -9,9 +9,14 @@ public class NodeObject : MonoBehaviour
     public Color selectCol;
     public Color defaultCol;
     public Color highlightCol;
+    public GameObject inputSphere;
+    public GameObject outputSphere;
+    public NodeObject inputObject;
+    public NodeObject outputObject;
+    public LineRenderer lineObject;
 
     private Material myMat;
-    private ToolManager manager;
+    public ToolManager manager;
 
     public bool isSelected;
     private bool isHovered;
@@ -51,6 +56,14 @@ public class NodeObject : MonoBehaviour
         else
         {
             myMat.color = defaultCol;
+        }
+
+        if (outputObject != null)
+        {
+            Vector3 pos1 = outputSphere.transform.position + Vector3.up * .5f;
+            Vector3 pos2 = outputObject.inputSphere.transform.position + Vector3.up * .5f;
+            Vector3[] positions = new Vector3[] { pos1, pos2 };
+            lineObject.SetPositions(positions);
         }
     }
 

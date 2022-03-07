@@ -15,12 +15,29 @@ public class ToolManager : MonoBehaviour
     public TMP_InputField nodeEditText;
 
     private GameObject activeNode;
+    private GameObject inputNode;
+    private GameObject outputNode;
 
     private List<GameObject> nodes = new List<GameObject>();
 
     void Start()
     {
         // load latest save
+    }
+
+    private void Update()
+    {
+        if (inputNode != null && outputNode != null)
+        {
+            NodeObject inputObj = inputNode.GetComponent<NodeObject>();
+            NodeObject outputObj = outputNode.GetComponent<NodeObject>();
+
+            inputObj.outputObject = outputObj;
+            outputObj.inputObject = inputObj;
+
+            inputNode = null;
+            outputNode = null;
+        }
     }
 
     void UpdateSelectedNodes()
@@ -71,5 +88,15 @@ public class ToolManager : MonoBehaviour
         NodeObject nodeObj = activeNode.GetComponent<NodeObject>();
         nodeObj.SetName(nodeEditName.text);
         nodeObj.SetText(nodeEditText.text);
+    }
+
+    public void SetInputNode(GameObject node)
+    {
+        inputNode = node;
+    }
+
+    public void SetOutputNode(GameObject node)
+    {
+        outputNode = node;
     }
 }
