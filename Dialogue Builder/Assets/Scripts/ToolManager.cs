@@ -32,8 +32,8 @@ public class ToolManager : MonoBehaviour
             NodeObject inputObj = inputNode.GetComponent<NodeObject>();
             NodeObject outputObj = outputNode.GetComponent<NodeObject>();
 
-            inputObj.outputObject = outputObj;
-            outputObj.inputObject = inputObj;
+            inputObj.inputObject = outputObj;
+            outputObj.outputObject = inputObj;
 
             inputNode = null;
             outputNode = null;

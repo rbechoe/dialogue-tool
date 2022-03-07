@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class NodeConnector : MonoBehaviour
 {
-    Material myMat;
-    Color defaultCol;
+    private Material myMat;
+    private Color defaultCol;
     public NodeObject parent;
 
-    bool entered;
-
-    // Start is called before the first frame update
+    private bool entered;
+    
     void Start()
     {
         myMat = GetComponent<Renderer>().material;
         defaultCol = myMat.color;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (entered && Input.GetMouseButtonDown(0))
@@ -26,6 +24,7 @@ public class NodeConnector : MonoBehaviour
             {
                 parent.manager.SetInputNode(parent.gameObject);
             }
+
             if (gameObject.CompareTag("output"))
             {
                 parent.manager.SetOutputNode(parent.gameObject);

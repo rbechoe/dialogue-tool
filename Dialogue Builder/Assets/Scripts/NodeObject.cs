@@ -60,10 +60,10 @@ public class NodeObject : MonoBehaviour
 
         if (outputObject != null)
         {
-            Vector3 pos1 = outputSphere.transform.position + Vector3.up * .5f;
-            Vector3 pos2 = outputObject.inputSphere.transform.position + Vector3.up * .5f;
-            Vector3[] positions = new Vector3[] { pos1, pos2 };
-            lineObject.SetPositions(positions);
+            lineObject.transform.position = outputSphere.transform.position + Vector3.up * .25f;
+            Vector3 position = (outputObject.inputSphere.transform.position - lineObject.transform.position) + Vector3.up * .25f;
+
+            lineObject.SetPosition(1, position);
         }
     }
 
