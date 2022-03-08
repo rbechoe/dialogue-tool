@@ -5,6 +5,9 @@ using UnityEngine;
 public class CamMovement : MonoBehaviour
 {
     public float slow = 25;
+    public float scrollSpeed = 10;
+    public int minHeight = 10;
+    public int maxHeight = 30;
 
     public Vector3 startPos;
     public Vector3 endPos;
@@ -23,14 +26,10 @@ public class CamMovement : MonoBehaviour
             transform.position += (startPos - endPos) / slow * Time.deltaTime;
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y > 10)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            transform.position -= Vector3.up;
-        }
-
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < 30)
-        {
-            transform.position += Vector3.up;
+            transform.position -= Vector3.up * Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, minHeight, maxHeight), transform.position.z);
         }
     }
 }
