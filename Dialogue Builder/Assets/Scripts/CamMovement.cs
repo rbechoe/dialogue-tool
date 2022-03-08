@@ -4,13 +4,33 @@ using UnityEngine;
 
 public class CamMovement : MonoBehaviour
 {
-    public float speed = 5;
+    public float slow = 25;
+
+    public Vector3 startPos;
+    public Vector3 endPos;
 
     void Update()
     {
-        float xVal = Input.GetAxis("Horizontal");
-        float zVal = Input.GetAxis("Vertical");
+        if (Input.GetMouseButtonDown(1))
+        {
+            startPos = new Vector3(Input.mousePosition.x, transform.position.y, Input.mousePosition.y);
+        }
 
-        transform.position += new Vector3(xVal, 0, zVal) * speed * Time.deltaTime;
+        if (Input.GetMouseButton(1))
+        {
+            endPos = new Vector3(Input.mousePosition.x, transform.position.y, Input.mousePosition.y);
+
+            transform.position += (startPos - endPos) / slow * Time.deltaTime;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y > 10)
+        {
+            transform.position -= Vector3.up;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < 30)
+        {
+            transform.position += Vector3.up;
+        }
     }
 }
