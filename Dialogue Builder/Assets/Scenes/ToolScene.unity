@@ -1713,7 +1713,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57248d0f5a5bf824b971a93814e12435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  slow: 25
+  scrollSpeed: 10
+  minHeight: 10
+  maxHeight: 30
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1090259172
 GameObject:
   m_ObjectHideFlags: 0
