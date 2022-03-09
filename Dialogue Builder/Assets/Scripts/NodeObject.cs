@@ -24,6 +24,7 @@ public class NodeObject : MonoBehaviour
     public TextMeshPro nameObj;
 
     // Trackables
+    private Node myNode;
     private string myName;
     private string myText;
     private string myId;
@@ -36,6 +37,7 @@ public class NodeObject : MonoBehaviour
         myMat = GetComponent<Renderer>().material;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ToolManager>();
         myMat.color = defaultCol;
+        myNode = new Node();
     }
 
     void Update()
@@ -67,6 +69,15 @@ public class NodeObject : MonoBehaviour
         }
     }
 
+    private void UpdateNode()
+    {
+        myNode.myName = myName;
+        myNode.myText = myText;
+        myNode.myId = myId;
+        myNode.myInputId = myInput;
+        myNode.myOutputId = myOutput;
+    }
+
     private void OnMouseEnter()
     {
         isHovered = true;
@@ -81,6 +92,7 @@ public class NodeObject : MonoBehaviour
     {
         myName = newName;
         nameObj.text = myName;
+        UpdateNode();
     }
 
     public string GetName()
@@ -91,6 +103,7 @@ public class NodeObject : MonoBehaviour
     public void SetText(string newText)
     {
         myText = newText;
+        UpdateNode();
     }
 
     public string GetText()
@@ -101,6 +114,7 @@ public class NodeObject : MonoBehaviour
     public void SetID(string newId)
     {
         myId = newId;
+        UpdateNode();
     }
 
     public string GetID()
@@ -111,6 +125,7 @@ public class NodeObject : MonoBehaviour
     public void SetInputID(string newId)
     {
         myInput = newId;
+        UpdateNode();
     }
 
     public string GetInputID()
@@ -121,6 +136,7 @@ public class NodeObject : MonoBehaviour
     public void SetOutputID(string newId)
     {
         myOutput = newId;
+        UpdateNode();
     }
 
     public string GetOutputID()
@@ -132,4 +148,19 @@ public class NodeObject : MonoBehaviour
     {
         return language.ToString();
     }
+
+    public Node GetNode()
+    {
+        return myNode;
+    }
+}
+
+[SerializeField]
+public class Node
+{
+    public string myName;
+    public string myText;
+    public string myId;
+    public string myInputId;
+    public string myOutputId;
 }

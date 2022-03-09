@@ -20,7 +20,7 @@ public class ToolManager : MonoBehaviour
 
     private List<GameObject> nodes = new List<GameObject>();
 
-    void Start()
+    private void Start()
     {
         // load latest save
     }
@@ -44,7 +44,7 @@ public class ToolManager : MonoBehaviour
         }
     }
 
-    void UpdateSelectedNodes()
+    private void UpdateSelectedNodes()
     {
         foreach (GameObject node in nodes)
         {
@@ -103,5 +103,16 @@ public class ToolManager : MonoBehaviour
     public void SetOutputNode(GameObject node)
     {
         outputNode = node;
+    }
+
+    public void SaveNodes()
+    {
+        List<Node> nodeExports = new List<Node>();
+        foreach(GameObject node in nodes)
+        {
+            nodeExports.Add(node.GetComponent<NodeObject>().GetNode());
+        }
+
+        // TODO write the list to json
     }
 }
