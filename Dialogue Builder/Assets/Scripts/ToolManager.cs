@@ -9,6 +9,8 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject cameraObj;
     public GameObject nodePrefab;
     public GameObject toolInfoWindow;
+    public Transform hitObj;
+    public Camera camera;
     public TextMeshProUGUI nodeName;
     public TextMeshProUGUI nodeInfo;
     public TMP_InputField nodeEditName;
@@ -21,6 +23,8 @@ public class ToolManager : MonoBehaviour
     private List<GameObject> nodes = new List<GameObject>();
 
     private DataSerializer dataSerializer;
+
+    private bool placingNodes;
 
     private void Start()
     {
@@ -45,6 +49,18 @@ public class ToolManager : MonoBehaviour
             outputNode = null;
 
             UpdateSelectedNodes();
+        }
+
+        if (placingNodes && Input.GetMouseButtonDown(0))
+        {
+            CreateNode();
+        }
+
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            hitObj.position = hit.point;
         }
     }
 
@@ -74,7 +90,7 @@ public class ToolManager : MonoBehaviour
 
     public void CreateNode()
     {
-        Vector3 spawnPos = new Vector3(cameraObj.transform.position.x, 0, cameraObj.transform.position.z);
+        Vector3 spawnPos = new Vector3(hitObj.position.x, 0, hitObj.position.z);
         GameObject newNode = Instantiate(nodePrefab, spawnPos, Quaternion.identity);
         nodes.Add(newNode);
         newNode.name = "Node " + nodes.Count;
@@ -164,5 +180,15 @@ public class ToolManager : MonoBehaviour
             Destroy(nodes[0]);
             nodes.RemoveAt(0);
         }
+    }
+
+    public void SpawnMode()
+    {
+        placingNodes = true;
+    }
+
+    public void ExitSpawnMode()
+    {
+        placingNodes = false;
     }
 }
