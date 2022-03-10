@@ -30,10 +30,32 @@ public class ToolManager : MonoBehaviour
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
 
-        // load latest save
+        // TODO make auto save button option
+        // TODO make nodes movable
     }
 
     private void Update()
+    {
+        LinkNodes();
+        MoveHitObj();
+
+        if (placingNodes && Input.GetMouseButtonDown(0))
+        {
+            CreateNode();
+        }
+    }
+
+    private void MoveHitObj()
+    {
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            hitObj.position = hit.point;
+        }
+    }
+
+    private void LinkNodes()
     {
         if (inputNode != null && outputNode != null)
         {
@@ -49,18 +71,6 @@ public class ToolManager : MonoBehaviour
             outputNode = null;
 
             UpdateSelectedNodes();
-        }
-
-        if (placingNodes && Input.GetMouseButtonDown(0))
-        {
-            CreateNode();
-        }
-
-        RaycastHit hit;
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            hitObj.position = hit.point;
         }
     }
 
