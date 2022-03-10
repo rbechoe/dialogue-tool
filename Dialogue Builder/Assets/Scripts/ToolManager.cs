@@ -74,7 +74,8 @@ public class ToolManager : MonoBehaviour
 
     public void CreateNode()
     {
-        GameObject newNode = Instantiate(nodePrefab, cameraObj.transform.position - new Vector3(0, 10, 0), Quaternion.identity);
+        Vector3 spawnPos = new Vector3(cameraObj.transform.position.x, 0, cameraObj.transform.position.z);
+        GameObject newNode = Instantiate(nodePrefab, spawnPos, Quaternion.identity);
         nodes.Add(newNode);
         newNode.name = "Node " + nodes.Count;
         activeNode = newNode;
@@ -124,13 +125,7 @@ public class ToolManager : MonoBehaviour
     {
         List<Node> nodeCollection = dataSerializer.ReadSave();
 
-        // make remove function a lot cleaner
-        int listCount = nodes.Count;
-        for (int i = 0; i < listCount; i++)
-        {
-            Destroy(nodes[0]);
-            nodes.RemoveAt(0);
-        }
+        CleanEnvironment();
 
         // create all nodes
         foreach(Node node in nodeCollection)
@@ -159,5 +154,15 @@ public class ToolManager : MonoBehaviour
         }
 
         print("Loaded save");
+    }
+
+    public void CleanEnvironment()
+    {
+        int listCount = nodes.Count;
+        for (int i = 0; i < listCount; i++)
+        {
+            Destroy(nodes[0]);
+            nodes.RemoveAt(0);
+        }
     }
 }

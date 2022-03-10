@@ -163,7 +163,6 @@ public class NodeObject : MonoBehaviour
     public void CreateConnections(List<GameObject> nodes)
     {
         // assign output object properly based on ID, only used when loading
-
         foreach(GameObject node in nodes)
         {
             NodeObject data = node.GetComponent<NodeObject>();
