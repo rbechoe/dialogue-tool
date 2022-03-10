@@ -37,9 +37,3 @@ public class DataSerializer : MonoBehaviour
         return nodes.collection;
     }
 }
-
-[Serializable]
-public class SerializableList<T>
-{
-    public List<T> collection;
-}
