@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class NodeObject : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class NodeObject : MonoBehaviour
     public TextMeshPro nameObj;
 
     // Trackables
-    private Node myNode;
+    private Node nodeData;
     private string myName;
     private string myText;
     private string myId;
@@ -32,12 +33,16 @@ public class NodeObject : MonoBehaviour
     private string myOutput;
     private Languages language = Languages.English;
 
+    private void Awake()
+    {
+        nodeData = new Node();
+    }
+
     void Start()
     {
         myMat = GetComponent<Renderer>().material;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ToolManager>();
         myMat.color = defaultCol;
-        myNode = new Node();
     }
 
     void Update()
@@ -71,11 +76,12 @@ public class NodeObject : MonoBehaviour
 
     private void UpdateNode()
     {
-        myNode.myName = myName;
-        myNode.myText = myText;
-        myNode.myId = myId;
-        myNode.myInputId = myInput;
-        myNode.myOutputId = myOutput;
+        nodeData.myName = myName;
+        nodeData.myText = myText;
+        nodeData.myId = myId;
+        nodeData.myInputId = myInput;
+        nodeData.myOutputId = myOutput;
+        nodeData.position = transform.position;
     }
 
     private void OnMouseEnter()
@@ -151,11 +157,26 @@ public class NodeObject : MonoBehaviour
 
     public Node GetNode()
     {
-        return myNode;
+        return nodeData;
+    }
+
+    public void CreateConnections(List<GameObject> nodes)
+    {
+        // assign output object properly based on ID, only used when loading
+
+        foreach(GameObject node in nodes)
+        {
+            NodeObject data = node.GetComponent<NodeObject>();
+            if (data.GetID() == myOutput)
+            {
+                outputObject = data;
+                return;
+            }
+        }
     }
 }
 
-[SerializeField]
+[Serializable]
 public class Node
 {
     public string myName;
@@ -163,4 +184,6 @@ public class Node
     public string myId;
     public string myInputId;
     public string myOutputId;
+
+    public Vector3 position;
 }

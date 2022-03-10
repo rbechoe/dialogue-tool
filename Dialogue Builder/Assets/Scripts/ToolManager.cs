@@ -20,8 +20,12 @@ public class ToolManager : MonoBehaviour
 
     private List<GameObject> nodes = new List<GameObject>();
 
+    private DataSerializer dataSerializer;
+
     private void Start()
     {
+        dataSerializer = gameObject.GetComponent<DataSerializer>();
+
         // load latest save
     }
 
@@ -113,6 +117,47 @@ public class ToolManager : MonoBehaviour
             nodeExports.Add(node.GetComponent<NodeObject>().GetNode());
         }
 
-        // TODO write the list to json
+        dataSerializer.WriteSave(nodeExports);
+    }
+
+    public void ReadNodes()
+    {
+        List<Node> nodeCollection = dataSerializer.ReadSave();
+
+        // make remove function a lot cleaner
+        int listCount = nodes.Count;
+        for (int i = 0; i < listCount; i++)
+        {
+            Destroy(nodes[0]);
+            nodes.RemoveAt(0);
+        }
+
+        // create all nodes
+        foreach(Node node in nodeCollection)
+        {
+            GameObject newNode = Instantiate(nodePrefab, cameraObj.transform.position - new Vector3(0, 10, 0), Quaternion.identity);
+            nodes.Add(newNode);
+            NodeObject data = newNode.GetComponent<NodeObject>();
+
+            // load in all world data
+            newNode.transform.position = node.position;
+            newNode.name = node.myName;
+
+            // load in all node data
+            data.SetText(node.myText);
+            data.SetID(node.myId);
+            data.SetInputID(node.myInputId);
+            data.SetOutputID(node.myOutputId);
+            data.SetName(node.myName);
+        }
+
+        // assign lines properly after all nodes have been loaded
+        foreach (GameObject node in nodes)
+        {
+            NodeObject data = node.GetComponent<NodeObject>();
+            data.CreateConnections(nodes);
+        }
+
+        print("Loaded save");
     }
 }
