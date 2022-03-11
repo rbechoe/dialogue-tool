@@ -25,12 +25,18 @@ public class ToolManager : MonoBehaviour
 
     private bool placingNodes;
 
+    private Command createNodeCommand;
+
     private void Start()
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
 
         // TODO make auto save button option
         // TODO make nodes movable
+
+        // execute node
+        //createNodeCommand.Execute();
+        //https://gameprogrammingpatterns.com/command.html
     }
 
     private void Update()
@@ -199,5 +205,15 @@ public class ToolManager : MonoBehaviour
     public void ExitSpawnMode()
     {
         placingNodes = false;
+    }
+
+    public void UndoLatestAction()
+    {
+
+    }
+
+    public void RedoAction()
+    {
+
     }
 }
