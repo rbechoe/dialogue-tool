@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CommandSystem
 {
-    public Stack<System.Action> doActions = new Stack<System.Action>();
+    public List<Command> doActions = new List<Command>();
 
     private int actionPosition;
 
-    public void AddAction(System.Action doAction)
+    public void AddAction(Command command)
     {
         actionPosition++;
 
@@ -17,7 +17,9 @@ public class CommandSystem
             // remove all following actions as we are most likely inbetween the stack
         }
 
-        doActions.Push(doAction);
+        command.Execute();
+
+        doActions.Add(command);
     }
 }
 
@@ -31,6 +33,6 @@ public class CreateNode : Command
 {
     public override void Execute()
     {
-        //CreateNode();
+        EventSystem.InvokeEvent(EventTypes.CreateNode);
     }
 }

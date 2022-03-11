@@ -6,5 +6,5 @@ public enum Languages
 
 public enum EventTypes
 {
-    
+    CreateNode,
 }

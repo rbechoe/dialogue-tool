@@ -25,7 +25,18 @@ public class ToolManager : MonoBehaviour
 
     private bool placingNodes;
 
-    private Command createNodeCommand;
+    private CommandSystem commandSystem = new CommandSystem();
+    private CreateNode createNodeCommand = new CreateNode();
+
+    private void OnEnable()
+    {
+        EventSystem.AddListener(EventTypes.CreateNode, CreateNode);
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.RemoveListener(EventTypes.CreateNode, CreateNode);
+    }
 
     private void Start()
     {
@@ -33,10 +44,6 @@ public class ToolManager : MonoBehaviour
 
         // TODO make auto save button option
         // TODO make nodes movable
-
-        // execute node
-        //createNodeCommand.Execute();
-        //https://gameprogrammingpatterns.com/command.html
     }
 
     private void Update()
@@ -46,7 +53,7 @@ public class ToolManager : MonoBehaviour
 
         if (placingNodes && Input.GetMouseButtonDown(0))
         {
-            CreateNode();
+            commandSystem.AddAction(createNodeCommand);
         }
     }
 
