@@ -5,6 +5,7 @@ using UnityEngine;
 public class CommandManager : MonoBehaviour
 {
     public List<ICommand> commands = new List<ICommand>();
+    public ToolManager manager;
 
     private int commandPosition;
 
@@ -43,7 +44,7 @@ public class CommandManager : MonoBehaviour
         commands.Add(command);
         commandPosition = commands.Count - 1;
 
-        command.Execute();
+        command.Execute(manager);
     }
 
     public void StepThroughCommands(bool back)
