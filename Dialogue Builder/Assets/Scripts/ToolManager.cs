@@ -23,11 +23,6 @@ public class ToolManager : MonoBehaviour
 
     private DataSerializer dataSerializer;
 
-    private bool placingNodes;
-
-    private CommandSystem commandSystem = new CommandSystem();
-    private CreateNode createNodeCommand = new CreateNode();
-
     private void OnEnable()
     {
         EventSystem.AddListener(EventTypes.CreateNode, CreateNode);
@@ -41,9 +36,6 @@ public class ToolManager : MonoBehaviour
     private void Start()
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
-
-        // TODO make auto save button option
-        // TODO make nodes movable
     }
 
     private void Update()
@@ -51,9 +43,9 @@ public class ToolManager : MonoBehaviour
         LinkNodes();
         MoveHitObj();
 
-        if (placingNodes && Input.GetMouseButtonDown(0))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            commandSystem.AddAction(createNodeCommand);
+            CommandManager.Instance.AddCommand(new CreateNode());
         }
     }
 
@@ -202,16 +194,6 @@ public class ToolManager : MonoBehaviour
             Destroy(nodes[0]);
             nodes.RemoveAt(0);
         }
-    }
-
-    public void SpawnMode()
-    {
-        placingNodes = true;
-    }
-
-    public void ExitSpawnMode()
-    {
-        placingNodes = false;
     }
 
     public void UndoLatestAction()
