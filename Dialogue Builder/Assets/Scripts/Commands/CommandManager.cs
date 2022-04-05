@@ -6,7 +6,7 @@ public class CommandManager : MonoBehaviour
 {
     public List<ICommand> commands = new List<ICommand>();
 
-    private int commandPosition;
+    [SerializeField] private int commandPosition = -1;
 
     private static CommandManager _instance;
 
@@ -95,8 +95,8 @@ public class CommandManager : MonoBehaviour
         }
         else
         {
-            if (commandPosition > commands.Count) return;
-            commands[commandPosition].Redo();
+            if (commandPosition + 2 > commands.Count) return;
+            commands[commandPosition + 1].Redo();
             commandPosition++;
         }
     }

@@ -23,16 +23,6 @@ public class ToolManager : MonoBehaviour
 
     private DataSerializer dataSerializer;
 
-    private void OnEnable()
-    {
-        EventSystem.AddListener(EventTypes.CreateNode, CreateNode);
-    }
-
-    private void OnDisable()
-    {
-        EventSystem.RemoveListener(EventTypes.CreateNode, CreateNode);
-    }
-
     private void Start()
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
@@ -95,20 +85,6 @@ public class ToolManager : MonoBehaviour
                 nodeEditText.text = nodeObj.GetText();
             }
         }
-    }
-
-    public void CreateNode()
-    {
-        Vector3 spawnPos = new Vector3(hitObj.position.x, 0, hitObj.position.z);
-        GameObject newNode = Instantiate(nodePrefab, spawnPos, Quaternion.identity);
-        nodes.Add(newNode);
-        newNode.name = "Node " + nodes.Count;
-        activeNode = newNode;
-
-        NodeObject nodeObj = newNode.GetComponent<NodeObject>();
-        nodeObj.SetName(newNode.name);
-        nodeObj.SetID("" + nodes.Count);
-        UpdateSelectedNodes();
     }
 
     public void SetActiveNode(GameObject nodeObject)
@@ -189,15 +165,5 @@ public class ToolManager : MonoBehaviour
             Destroy(nodes[0]);
             nodes.RemoveAt(0);
         }
-    }
-
-    public void UndoLatestAction()
-    {
-
-    }
-
-    public void RedoAction()
-    {
-
     }
 }
