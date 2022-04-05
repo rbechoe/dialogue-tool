@@ -1,6 +1,6 @@
 public interface ICommand
 {
-    void Execute(ToolManager manager);
+    void Execute();
     void Undo();
     void Redo();
 }

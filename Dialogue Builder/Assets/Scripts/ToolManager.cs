@@ -42,11 +42,6 @@ public class ToolManager : MonoBehaviour
     {
         LinkNodes();
         MoveHitObj();
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            CommandManager.Instance.AddCommand(new CreateNode());
-        }
     }
 
     private void MoveHitObj()

@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class CreateNode : BaseCommand
 {
-    ToolManager manager;
+    public Vector3 startPosition;
+    public GameObject myNode;
 
-    public override void Execute(ToolManager manager)
+    public override void Execute()
     {
-        this.manager = manager;
-        EventSystem.InvokeEvent(EventTypes.CreateNode);
+        startPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
+        myNode = newNode;
     }
 
     public override void Redo()
     {
-        // add gameobject at position
+        GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
+        myNode = newNode;
     }
 
     public override void Undo()
     {
-        // remove gameobject
+        Destroy(myNode);
+        myNode = null;
     }
 }

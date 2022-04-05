@@ -5,13 +5,17 @@ using UnityEngine;
 public class CommandManager : MonoBehaviour
 {
     public List<ICommand> commands = new List<ICommand>();
-    public ToolManager manager;
 
     private int commandPosition;
 
     private static CommandManager _instance;
 
     public static CommandManager Instance { get { return _instance; } }
+
+    private KeyCode commandCode;
+
+    [Header("Accessibles")]
+    public GameObject nodePrefab;
 
     private void Awake()
     {
@@ -22,6 +26,40 @@ public class CommandManager : MonoBehaviour
         else
         {
             _instance = this;
+        }
+    }
+
+    private void Start()
+    {
+         if (Application.isEditor)
+        {
+            print("Running in editor! All control commands have been replaced with left shift!");
+            commandCode = KeyCode.LeftShift;
+        }
+        else
+        {
+            commandCode = KeyCode.LeftControl;
+        }
+    }
+
+    private void Update()
+    {
+        // undo
+        if (Input.GetKey(commandCode) && Input.GetKeyUp(KeyCode.Z))
+        {
+            StepThroughCommands(true);
+        }
+
+        // redo
+        if (Input.GetKey(commandCode) && Input.GetKeyUp(KeyCode.Y))
+        {
+            StepThroughCommands(false);
+        }
+
+        // create node
+        if (Input.GetKey(commandCode) && Input.GetMouseButtonUp(0))
+        {
+            AddCommand(new CreateNode());
         }
     }
 
@@ -44,28 +82,22 @@ public class CommandManager : MonoBehaviour
         commands.Add(command);
         commandPosition = commands.Count - 1;
 
-        command.Execute(manager);
+        command.Execute();
     }
 
     public void StepThroughCommands(bool back)
     {
         if (back)
         {
+            if (commandPosition < 0) return;
             commands[commandPosition].Undo();
             commandPosition--;
-            if (commandPosition < 0)
-            {
-                commandPosition = 0;
-            }
         }
         else
         {
+            if (commandPosition > commands.Count) return;
             commands[commandPosition].Redo();
             commandPosition++;
-            if (commandPosition >= commands.Count)
-            {
-                commandPosition = commands.Count - 1;
-            }
         }
     }
 }

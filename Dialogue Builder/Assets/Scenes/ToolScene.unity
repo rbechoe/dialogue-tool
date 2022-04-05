@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4710da91573084882b306cbdfc4618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1151987435}
+  nodePrefab: {fileID: 6388710367922078252, guid: b13b8bf212d77ab4a9749ef392a40ea7, type: 3}
 --- !u!4 &521072789
 Transform:
   m_ObjectHideFlags: 0
@@ -2572,7 +2572,7 @@ GameObject:
   - component: {fileID: 1084540481}
   m_Layer: 0
   m_Name: hit object
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
