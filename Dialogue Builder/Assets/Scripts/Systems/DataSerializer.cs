@@ -20,9 +20,9 @@ public class DataSerializer : MonoBehaviour
     {
         nodes.collection.Clear();
 
-        foreach(Node node in nodesToSave)
+        foreach(GameObject node in GameObject.FindGameObjectsWithTag("Node"))
         {
-            nodes.collection.Add(node);
+            nodes.collection.Add(node.GetComponent<Node>());
         }
 
         string jsonData = JsonUtility.ToJson(nodes); 
