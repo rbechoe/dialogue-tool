@@ -136,7 +136,7 @@ public class ToolManager : MonoBehaviour
         outputNode = node;
     }
 
-    public void SaveNodes()
+    public void SaveNodes(string path = null)
     {
         List<Node> nodeExports = new List<Node>();
         foreach(GameObject node in nodes)
@@ -144,12 +144,17 @@ public class ToolManager : MonoBehaviour
             nodeExports.Add(node.GetComponent<NodeObject>().GetNode());
         }
 
-        dataSerializer.WriteSave(nodeExports);
+        dataSerializer.WriteSave(nodeExports, path);
     }
 
-    public void ReadNodes()
+    public void ReadNodes(string path = null)
     {
-        List<Node> nodeCollection = dataSerializer.ReadSave();
+        List<Node> nodeCollection;
+
+        if (path == null)
+            nodeCollection = dataSerializer.ReadSave();
+        else
+            nodeCollection = dataSerializer.ReadSave(path);
 
         CleanEnvironment();
 
@@ -195,6 +200,7 @@ public class ToolManager : MonoBehaviour
     public void CreatedNode(GameObject node)
     {
         nodes.Add(node);
+        node.GetComponent<NodeObject>().SetID("ID" + GameObject.FindGameObjectsWithTag("Node").Length);
     }
 
     public void RemovedNode(GameObject node)

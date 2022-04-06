@@ -16,23 +16,42 @@ public class DataSerializer : MonoBehaviour
         savePath = Application.persistentDataPath + "/dialogue-save.json";
     }
 
-    public void WriteSave(List<Node> nodesToSave)
+    public void WriteSave(List<Node> nodesToSave, string path = null)
     {
         nodes.collection.Clear();
 
         foreach(GameObject node in GameObject.FindGameObjectsWithTag("Node"))
         {
-            nodes.collection.Add(node.GetComponent<Node>());
+            nodes.collection.Add(node.GetComponent<NodeObject>().GetNode());
         }
 
-        string jsonData = JsonUtility.ToJson(nodes); 
-        File.WriteAllText(savePath, jsonData);
+        string jsonData = JsonUtility.ToJson(nodes);
+        if (path != null)
+        {
+            path = path.Replace("\\", "/");
+            File.WriteAllText(path, jsonData);
+        }
+        else
+        {
+            File.WriteAllText(savePath, jsonData);
+        }
         print("Saved data");
     }
 
-    public List<Node> ReadSave()
+    public List<Node> ReadSave(string path = null)
     {
-        string jsonString = File.ReadAllText(savePath);
+        string jsonString;
+
+        if (path != null)
+        {
+            path = path.Replace("\\", "/");
+            jsonString = File.ReadAllText(path);
+        }
+        else
+        {
+            jsonString = File.ReadAllText(savePath);
+        }
+
         nodes = JsonUtility.FromJson<SerializableList<Node>>(jsonString);
         return nodes.collection;
     }

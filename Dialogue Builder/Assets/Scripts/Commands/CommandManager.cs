@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using System.Windows.Forms;
 
 public class CommandManager : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class CommandManager : MonoBehaviour
     [Header("Accessibles")]
     public GameObject nodePrefab;
 
+
+    [DllImport("user32.dll")]
+    private static extern void OpenFileDialog();
+    [DllImport("user32.dll")]
+    private static extern void SaveFileDialog();
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -31,7 +39,7 @@ public class CommandManager : MonoBehaviour
 
     private void Start()
     {
-         if (Application.isEditor)
+        if (UnityEngine.Application.isEditor)
         {
             print("Running in editor! All control commands have been replaced with left shift!");
             commandCode = KeyCode.LeftShift;
@@ -44,6 +52,49 @@ public class CommandManager : MonoBehaviour
 
     private void Update()
     {
+        // save
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.S))
+        {
+            ToolManager.Instance.SaveNodes();
+        }
+
+        // save to
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.A))
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Json Files (*.json)|*.json";
+            dialog.ShowDialog();
+            string filePath = dialog.FileName;
+            if (filePath.Length == 0) return;
+
+            ToolManager.Instance.SaveNodes(filePath);
+        }
+
+        // load
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.W))
+        {
+            ToolManager.Instance.ReadNodes();
+        }
+
+        // load from
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.D))
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            dialog.Filter = "Json Files (*.json)|*.json";
+            dialog.ShowDialog();
+            string filePath = dialog.FileName;
+            if (filePath.Length == 0) return;
+
+            ToolManager.Instance.ReadNodes(filePath);
+        }
+
+        // cleanup
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.Delete))
+        {
+            ToolManager.Instance.CleanEnvironment();
+        }
+
         // undo
         if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.Z))
         {
@@ -65,18 +116,9 @@ public class CommandManager : MonoBehaviour
 
     public void AddCommand(ICommand command)
     {
-        int debugKill = 0;
-        int count = commands.Count;
         while (commands.Count > commandPosition + 1)
         {
             commands.RemoveAt(commandPosition + 1);
-
-            debugKill++;
-            if (debugKill > count + 25)
-            {
-                print("killed while loop");
-                break;
-            }
         }
 
         commands.Add(command);

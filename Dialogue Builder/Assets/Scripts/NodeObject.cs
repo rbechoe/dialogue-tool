@@ -28,11 +28,11 @@ public class NodeObject : MonoBehaviour
 
     // Trackables
     private Node nodeData;
-    private string myName;
-    private string myText;
-    private string myId;
-    private string myInput;
-    private string myOutput;
+    private string myName = "Node X";
+    private string myText = null;
+    private string myId = null;
+    private string myInput = null;
+    private string myOutput = null;
     private Languages language = Languages.English;
 
     private void Awake()
@@ -59,6 +59,7 @@ public class NodeObject : MonoBehaviour
         {
             Vector3 newPos = new Vector3(mousePos.position.x, transform.position.y, mousePos.position.z);
             transform.position = newPos;
+            UpdateNode();
         }
 
         if (isHovered && !isSelected)
@@ -205,11 +206,11 @@ public class NodeObject : MonoBehaviour
 [Serializable]
 public class Node
 {
-    public string myName;
-    public string myText;
-    public string myId;
-    public string myInputId;
-    public string myOutputId;
+    public string myName = null;
+    public string myText = null;
+    public string myId = null;
+    public string myInputId = null;
+    public string myOutputId = null;
 
     public Vector3 position;
 }
