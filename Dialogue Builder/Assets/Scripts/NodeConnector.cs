@@ -6,41 +6,76 @@ public class NodeConnector : MonoBehaviour
 {
     private Material myMat;
     private Color defaultCol;
+    private Transform mousePos;
     public NodeObject parent;
+    public LineRenderer lineObject;
 
-    private bool entered;
+    private bool hovered;
+    private bool isDragged;
     
     void Start()
     {
         myMat = GetComponent<Renderer>().material;
+        mousePos = GameObject.FindGameObjectWithTag("Player").transform;
         defaultCol = myMat.color;
+        lineObject = parent.lineObject;
     }
     
     void Update()
     {
-        if (entered && Input.GetMouseButtonDown(0))
+        if (hovered)
         {
-            if (gameObject.CompareTag("input"))
+            if (Input.GetMouseButtonDown(0))
             {
-                parent.manager.SetInputNode(parent.gameObject);
+                // line will go from here to other node
+                if (gameObject.CompareTag("output"))
+                {
+                    parent.manager.SetOutputNode(parent.gameObject);
+                    isDragged = true;
+                }
             }
 
-            if (gameObject.CompareTag("output"))
+            if (Input.GetMouseButtonUp(0))
             {
-                parent.manager.SetOutputNode(parent.gameObject);
+                // receive line from other node to this position
+                if (gameObject.CompareTag("input"))
+                {
+                    parent.manager.SetInputNode(parent.gameObject);
+                }
             }
+        }
+
+        if (isDragged && Input.GetMouseButtonUp(0))
+        {
+            isDragged = false;
+
+            // reset line in case user didnt connect
+            lineObject.SetPosition(1, Vector3.zero);
+        }
+
+        // update line
+        if (isDragged)
+        {
+            lineObject.transform.position = transform.position + Vector3.up * .25f;
+            Vector3 position = (mousePos.position - lineObject.transform.position) + Vector3.up * .25f;
+
+            lineObject.SetPosition(1, position);
         }
     }
 
     private void OnMouseEnter()
     {
+        hovered = true;
+
+        if (gameObject.CompareTag("input")) return;
         myMat.color = Color.green;
-        entered = true;
     }
 
     private void OnMouseExit()
     {
+        hovered = false;
+
+        if (gameObject.CompareTag("input")) return;
         myMat.color = defaultCol;
-        entered = false;
     }
 }

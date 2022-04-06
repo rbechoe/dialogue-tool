@@ -12,16 +12,19 @@ public class CreateNode : BaseCommand
         startPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
         myNode = newNode;
+        ToolManager.Instance.CreatedNode(myNode);
     }
 
     public override void Redo()
     {
         GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
         myNode = newNode;
+        ToolManager.Instance.CreatedNode(myNode);
     }
 
     public override void Undo()
     {
+        ToolManager.Instance.RemovedNode(myNode);
         Destroy(myNode);
         myNode = null;
     }

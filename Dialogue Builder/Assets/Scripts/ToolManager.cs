@@ -23,6 +23,21 @@ public class ToolManager : MonoBehaviour
 
     private DataSerializer dataSerializer;
 
+    private static ToolManager instance;
+    public static ToolManager Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Start()
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
@@ -91,6 +106,16 @@ public class ToolManager : MonoBehaviour
     {
         activeNode = nodeObject;
         UpdateSelectedNodes();
+
+        // when empty value is passed then the object will be deselected
+        if (nodeObject == null)
+        {
+            nodeName.text = "";
+            nodeInfo.text = "";
+            nodeEditName.text = "";
+            nodeEditText.text = "";
+            toolInfoWindow.SetActive(false);
+        }
     }
 
     public void UpdateNodeInformation()
@@ -165,5 +190,15 @@ public class ToolManager : MonoBehaviour
             Destroy(nodes[0]);
             nodes.RemoveAt(0);
         }
+    }
+
+    public void CreatedNode(GameObject node)
+    {
+        nodes.Add(node);
+    }
+
+    public void RemovedNode(GameObject node)
+    {
+        nodes.Remove(node);
     }
 }

@@ -21,6 +21,8 @@ public class NodeObject : MonoBehaviour
 
     public bool isSelected;
     private bool isHovered;
+    private bool isDragged;
+    private Transform mousePos;
 
     public TextMeshPro nameObj;
 
@@ -41,24 +43,49 @@ public class NodeObject : MonoBehaviour
     void Start()
     {
         myMat = GetComponent<Renderer>().material;
-        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ToolManager>();
+        manager = ToolManager.Instance;
+        mousePos = GameObject.FindGameObjectWithTag("Player").transform;
         myMat.color = defaultCol;
     }
 
     void Update()
     {
+        if (isDragged && Input.GetMouseButtonUp(0))
+        {
+            isDragged = false;
+        }
+
+        if (isDragged)
+        {
+            Vector3 newPos = new Vector3(mousePos.position.x, transform.position.y, mousePos.position.z);
+            transform.position = newPos;
+        }
+
         if (isHovered && !isSelected)
         {
             myMat.color = highlightCol;
 
-            if (Input.GetMouseButtonUp(0))
+            // select
+            if (Input.GetMouseButtonDown(0))
             {
                 manager.SetActiveNode(gameObject);
+            }
+
+            // allow object to be dragged
+            if (Input.GetMouseButton(0))
+            {
+                isDragged = true;
             }
         }
         else if (isSelected)
         {
             myMat.color = selectCol;
+
+            // deselect
+            if (isHovered && Input.GetMouseButtonDown(0))
+            {
+                manager.SetActiveNode(null);
+            }
         }
         else
         {

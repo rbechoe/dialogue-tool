@@ -1216,7 +1216,7 @@ GameObject:
   - component: {fileID: 521072789}
   - component: {fileID: 521072788}
   m_Layer: 0
-  m_Name: singleton
+  m_Name: Commands (ST)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1234,7 +1234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4710da91573084882b306cbdfc4618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandPosition: -1
   nodePrefab: {fileID: 6388710367922078252, guid: b13b8bf212d77ab4a9749ef392a40ea7, type: 3}
 --- !u!4 &521072789
 Transform:
@@ -2250,7 +2249,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1090259172
 GameObject:
@@ -2399,7 +2398,7 @@ GameObject:
   - component: {fileID: 1151987435}
   - component: {fileID: 1151987437}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Tool (ST)
   m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2439,7 +2438,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1151987437
 MonoBehaviour:

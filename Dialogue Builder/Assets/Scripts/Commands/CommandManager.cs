@@ -6,11 +6,11 @@ public class CommandManager : MonoBehaviour
 {
     public List<ICommand> commands = new List<ICommand>();
 
-    [SerializeField] private int commandPosition = -1;
+    private int commandPosition = -1;
 
-    private static CommandManager _instance;
+    private static CommandManager instance;
 
-    public static CommandManager Instance { get { return _instance; } }
+    public static CommandManager Instance { get { return instance; } }
 
     private KeyCode commandCode;
 
@@ -19,13 +19,13 @@ public class CommandManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
         }
     }
 
@@ -45,19 +45,19 @@ public class CommandManager : MonoBehaviour
     private void Update()
     {
         // undo
-        if (Input.GetKey(commandCode) && Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.Z))
         {
             StepThroughCommands(true);
         }
 
         // redo
-        if (Input.GetKey(commandCode) && Input.GetKeyUp(KeyCode.Y))
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.Y))
         {
             StepThroughCommands(false);
         }
 
         // create node
-        if (Input.GetKey(commandCode) && Input.GetMouseButtonUp(0))
+        if (Input.GetKey(commandCode) && Input.GetMouseButtonDown(0))
         {
             AddCommand(new CreateNode());
         }
