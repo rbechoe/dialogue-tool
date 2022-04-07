@@ -138,6 +138,11 @@ public class ToolManager : MonoBehaviour
         }
     }
 
+    public GameObject GetActiveNode()
+    {
+        return activeNode;
+    }
+
     public void UpdateNodeInformation()
     {
         NodeObject nodeObj = activeNode.GetComponent<NodeObject>();

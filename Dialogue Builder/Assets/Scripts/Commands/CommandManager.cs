@@ -118,6 +118,12 @@ public class CommandManager : MonoBehaviour
         {
             AddCommand(new CreateNode());
         }
+
+        // delete node
+        if (Input.GetKey(commandCode) && Input.GetMouseButtonDown(1) && ToolManager.Instance.GetActiveNode() != null)
+        {
+            AddCommand(new DeleteNode());
+        }
     }
 
     public void AddCommand(ICommand command)
