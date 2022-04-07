@@ -4,20 +4,32 @@ using TMPro;
 
 public class ToolManager : MonoBehaviour
 {
+    [Header("Settings")]
+    public float readingSpeed = 20;
+
     [Header("Assignables")]
     [SerializeField] private GameObject cameraObj;
     public GameObject nodePrefab;
     public GameObject toolInfoWindow;
+    public GameObject dialogueBall;
     public Transform hitObj;
     public Camera camera;
     public TextMeshProUGUI nodeName;
-    public TextMeshProUGUI nodeInfo;
     public TMP_InputField nodeEditName;
     public TMP_InputField nodeEditText;
 
     private GameObject activeNode;
     private GameObject inputNode;
     private GameObject outputNode;
+
+    public GameObject dialogueBar;
+    public TextMeshProUGUI dialogueText;
+    public bool runningDialogue;
+
+    private GameObject startNode;
+    private GameObject endNode;
+    private float totalDialogueTime;
+    private float currentDialogueTime;
 
     private List<GameObject> nodes = new List<GameObject>();
 
@@ -41,12 +53,25 @@ public class ToolManager : MonoBehaviour
     private void Start()
     {
         dataSerializer = gameObject.GetComponent<DataSerializer>();
+        dialogueBar.SetActive(false);
+        toolInfoWindow.SetActive(false);
+        dialogueBall.SetActive(false);  
     }
 
     private void Update()
     {
         LinkNodes();
         MoveHitObj();
+        MoveBall();
+    }
+
+    private void MoveBall()
+    {
+        if (!runningDialogue) return;
+
+        currentDialogueTime += Time.deltaTime;
+        float step = currentDialogueTime / totalDialogueTime;
+        dialogueBall.transform.position = Vector3.Lerp(startNode.transform.position, endNode.transform.position, step);
     }
 
     private void MoveHitObj()
@@ -92,10 +117,6 @@ public class ToolManager : MonoBehaviour
                 nodeObj.isSelected = true;
                 toolInfoWindow.SetActive(true);
                 nodeName.text = nodeObj.GetName();
-                nodeInfo.text = "Node ID: " + nodeObj.GetID() +
-                                "\nInput ID: " + nodeObj.GetInputID() +
-                                "\nOutput ID: " + nodeObj.GetOutputID() +
-                                "\nLanuage: " + nodeObj.GetLanguage();
                 nodeEditName.text = nodeObj.GetName();
                 nodeEditText.text = nodeObj.GetText();
             }
@@ -111,7 +132,6 @@ public class ToolManager : MonoBehaviour
         if (nodeObject == null)
         {
             nodeName.text = "";
-            nodeInfo.text = "";
             nodeEditName.text = "";
             nodeEditText.text = "";
             toolInfoWindow.SetActive(false);
@@ -206,5 +226,61 @@ public class ToolManager : MonoBehaviour
     public void RemovedNode(GameObject node)
     {
         nodes.Remove(node);
+    }
+
+    public void FireDialogues()
+    {
+        if (activeNode == null) return;
+        NodeObject node = activeNode.GetComponent<NodeObject>();
+        QueueDialogue(node);
+    }
+
+    private void QueueDialogue(NodeObject node, float waitStack = 0)
+    {
+        string[] info = { node.GetName(), node.GetText() };
+        GameObject[] spheres;
+        if (node.outputObject != null)
+            spheres = new GameObject[]{ node.outputSphere, node.outputObject.inputSphere };
+        else
+            spheres = new GameObject[] { node.inputSphere, node.outputSphere };
+
+        float charLength = (1f + node.GetText().Length / readingSpeed);
+        float waitTime = charLength + waitStack;
+
+        // use stack, because we want current line to fire immediately after previous line
+        StartCoroutine(DelayedMethods<string[]>.DelayedMethod(FireLine, info, waitStack));
+        StartCoroutine(DelayedMethods<GameObject[], float>.DelayedMethod(FireBall, spheres, charLength, waitStack));
+
+        if (node.outputObject != null)
+        {
+            QueueDialogue(node.outputObject, waitTime);
+        }
+        else
+        {
+            StartCoroutine(DelayedMethods.DelayedMethod(DisableBar, waitTime));
+        }
+    }
+
+    private void FireLine(string[] info)
+    {
+        dialogueBar.SetActive(true);
+        runningDialogue = true;
+        dialogueText.text = info[0] + ": " + info[1];
+    }
+
+    private void FireBall(GameObject[] objects, float time)
+    {
+        startNode = objects[0];
+        endNode = objects[1];
+        totalDialogueTime = time;
+        currentDialogueTime = 0;
+        dialogueBall.SetActive(true);
+    }
+
+    private void DisableBar()
+    {
+        dialogueBar.SetActive(false);
+        runningDialogue = false;
+        dialogueBall.SetActive(false);
     }
 }

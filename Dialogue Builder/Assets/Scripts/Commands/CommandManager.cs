@@ -95,6 +95,12 @@ public class CommandManager : MonoBehaviour
             ToolManager.Instance.CleanEnvironment();
         }
 
+        // play
+        if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.P) && !ToolManager.Instance.runningDialogue)
+        {
+            ToolManager.Instance.FireDialogues();
+        }
+
         // undo
         if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.Z))
         {
