@@ -112,6 +112,10 @@ public class NodeObject : MonoBehaviour
 
             lineObject.SetPosition(1, position);
         }
+        else
+        {
+            lineObject.SetPosition(1, Vector3.zero);
+        }
     }
 
     private void UpdateNode()
@@ -208,7 +212,15 @@ public class NodeObject : MonoBehaviour
             NodeObject data = node.GetComponent<NodeObject>();
             if (data.GetID() == myOutput)
             {
+                NodeObject prevNode = outputObject;
                 outputObject = data;
+
+                // track this action for undo redo
+                ConnectNodes connectCmd = new ConnectNodes();
+                connectCmd.oldNode = prevNode;
+                connectCmd.newNode = outputObject;
+                connectCmd.curNode = this;
+                CommandManager.Instance.AddCommand(connectCmd);
                 return;
             }
         }
