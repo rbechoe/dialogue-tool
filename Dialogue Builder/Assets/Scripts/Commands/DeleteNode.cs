@@ -10,22 +10,22 @@ public class DeleteNode : BaseCommand
     public override void Execute()
     {
         startPosition = ToolManager.Instance.GetActiveNode().transform.position;
-        ToolManager.Instance.RemovedNode(ToolManager.Instance.GetActiveNode());
-        Destroy(ToolManager.Instance.GetActiveNode());
+        myNode = ToolManager.Instance.GetActiveNode();
+        ToolManager.Instance.RemovedNode(myNode);
+        myNode.gameObject.SetActive(false);
         ToolManager.Instance.SetActiveNode(null);
     }
 
     public override void Redo()
     {
-        ToolManager.Instance.RemovedNode(ToolManager.Instance.GetActiveNode());
-        Destroy(ToolManager.Instance.GetActiveNode());
+        ToolManager.Instance.RemovedNode(myNode);
+        myNode.gameObject.SetActive(false);
         ToolManager.Instance.SetActiveNode(null);
     }
 
     public override void Undo()
     {
-        GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
-        myNode = newNode;
+        myNode.gameObject.SetActive(true);
         ToolManager.Instance.CreatedNode(myNode);
         ToolManager.Instance.SetActiveNode(myNode);
     }

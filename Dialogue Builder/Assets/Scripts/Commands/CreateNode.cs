@@ -17,15 +17,13 @@ public class CreateNode : BaseCommand
 
     public override void Redo()
     {
-        GameObject newNode = Instantiate(CommandManager.Instance.nodePrefab, startPosition, Quaternion.identity);
-        myNode = newNode;
+        myNode.gameObject.SetActive(true);
         ToolManager.Instance.CreatedNode(myNode);
     }
 
     public override void Undo()
     {
         ToolManager.Instance.RemovedNode(myNode);
-        Destroy(myNode);
-        myNode = null;
+        myNode.gameObject.SetActive(false);
     }
 }

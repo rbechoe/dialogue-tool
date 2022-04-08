@@ -105,7 +105,7 @@ public class NodeObject : MonoBehaviour
             myMat.color = defaultCol;
         }
 
-        if (outputObject != null)
+        if (outputObject != null && outputObject.gameObject.activeSelf)
         {
             lineObject.transform.position = outputSphere.transform.position + Vector3.up * .25f;
             Vector3 position = (outputObject.inputSphere.transform.position - lineObject.transform.position) + Vector3.up * .25f;
