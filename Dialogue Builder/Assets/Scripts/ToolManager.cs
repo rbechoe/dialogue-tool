@@ -154,8 +154,15 @@ public class ToolManager : MonoBehaviour
     {
         NodeObject nodeObj = activeNode.GetComponent<NodeObject>();
         nodeName.text = nodeEditName.text;
-        nodeObj.SetName(nodeEditName.text);
-        nodeObj.SetText(nodeEditText.text);
+
+        // track changes
+        EditInfo editCmd = new EditInfo();
+        editCmd.newName = nodeEditName.text;
+        editCmd.newText = nodeEditText.text;
+        editCmd.oldName = nodeObj.GetName();
+        editCmd.oldText = nodeObj.GetText();
+        editCmd.myNode = nodeObj;
+        CommandManager.Instance.AddCommand(editCmd);
     }
 
     public void SetInputNode(GameObject node)

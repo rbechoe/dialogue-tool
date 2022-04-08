@@ -11,15 +11,15 @@ public class DeleteNode : BaseCommand
     {
         startPosition = ToolManager.Instance.GetActiveNode().transform.position;
         myNode = ToolManager.Instance.GetActiveNode();
-        ToolManager.Instance.RemovedNode(myNode);
         myNode.gameObject.SetActive(false);
+        ToolManager.Instance.RemovedNode(myNode);
         ToolManager.Instance.SetActiveNode(null);
     }
 
     public override void Redo()
     {
-        ToolManager.Instance.RemovedNode(myNode);
         myNode.gameObject.SetActive(false);
+        ToolManager.Instance.RemovedNode(myNode);
         ToolManager.Instance.SetActiveNode(null);
     }
 
