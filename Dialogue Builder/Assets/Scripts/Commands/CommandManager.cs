@@ -74,6 +74,7 @@ public class CommandManager : MonoBehaviour
         if (Input.GetKey(commandCode) && Input.GetKeyDown(KeyCode.W))
         {
             ToolManager.Instance.ReadNodes();
+            commands.Clear();
         }
 
         // load from
@@ -87,6 +88,7 @@ public class CommandManager : MonoBehaviour
             if (filePath.Length == 0) return;
 
             ToolManager.Instance.ReadNodes(filePath);
+            commands.Clear();
         }
 
         // cleanup
