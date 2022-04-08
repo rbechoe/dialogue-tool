@@ -35,6 +35,10 @@ public class NodeObject : MonoBehaviour
     private string myOutput = null;
     private Languages language = Languages.English;
 
+    // command data
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+
     private void Awake()
     {
         nodeData = new Node();
@@ -52,7 +56,14 @@ public class NodeObject : MonoBehaviour
     {
         if (isDragged && Input.GetMouseButtonUp(0))
         {
+            endPosition = transform.position;
             isDragged = false;
+
+            MoveNode moveCmd = new MoveNode();
+            moveCmd.myNode = gameObject;
+            moveCmd.oldPosition = startPosition;
+            moveCmd.newPosition = endPosition;
+            CommandManager.Instance.AddCommand(moveCmd);
         }
 
         if (isDragged)
@@ -75,6 +86,7 @@ public class NodeObject : MonoBehaviour
             // allow object to be dragged
             if (Input.GetMouseButton(0))
             {
+                startPosition = transform.position;
                 isDragged = true;
             }
         }
