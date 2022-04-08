@@ -91,6 +91,13 @@ public class ToolManager : MonoBehaviour
             NodeObject inputObj = inputNode.GetComponent<NodeObject>();
             NodeObject outputObj = outputNode.GetComponent<NodeObject>();
 
+            // track this action for undo redo
+            ConnectNodes connectCmd = new ConnectNodes();
+            connectCmd.oldNode = outputObj.outputObject;
+            connectCmd.newNode = inputObj;
+            connectCmd.curNode = outputObj;
+            CommandManager.Instance.AddCommand(connectCmd);
+
             inputObj.inputObject = outputObj;
             inputObj.SetInputID(outputObj.GetID());
             outputObj.outputObject = inputObj;

@@ -214,13 +214,6 @@ public class NodeObject : MonoBehaviour
             {
                 NodeObject prevNode = outputObject;
                 outputObject = data;
-
-                // track this action for undo redo
-                ConnectNodes connectCmd = new ConnectNodes();
-                connectCmd.oldNode = prevNode;
-                connectCmd.newNode = outputObject;
-                connectCmd.curNode = this;
-                CommandManager.Instance.AddCommand(connectCmd);
                 return;
             }
         }
