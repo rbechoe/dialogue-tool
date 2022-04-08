@@ -1,112 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CamMovement">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="11.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQQACAAAAAAAAAAAAAAAAAAABAAAAAAAAAEAAAAAAI=</HashCode>
       <FileName>Assets\Scripts\CamMovement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CharacterCounter">
-    <Position X="11" Y="0.5" Width="1.5" />
+    <Position X="13.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\CharacterCounter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NodeConnector">
-    <Position X="9.25" Y="3.5" Width="1.5" />
+  <Class Name="BaseCommand">
+    <Position X="13.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAGQAAABAAABCAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\BaseCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CommandManager">
+    <Position X="17" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQwAAAACCIAAAACAAAAAAAAAEBAAAAAQAAABAQAAEA=</HashCode>
+      <FileName>Assets\Scripts\Commands\CommandManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConnectNodes">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAgAgAABAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Commands\ConnectNodes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CreateNode">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACBBQAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\CreateNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeleteNode">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACBBQAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\DeleteNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EditInfo">
+    <Position X="13.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAASBgQEAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\EditInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveNode">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACBAQAAAAAAEABAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\MoveNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodeConnector">
+    <Position X="15.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAADQAAAFAAABCAAAAEAAAAAAAAAAIAAEAAAA=</HashCode>
       <FileName>Assets\Scripts\NodeConnector.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NodeObject">
-    <Position X="14.5" Y="0.5" Width="1.5" />
+    <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQJgAgQECQgAAkIEIhSgBEFVAAQEAIAAIEAQAAABGA=</HashCode>
+      <HashCode>ABQJgAgQECQgABkIEIhSgBEFVAAQEAIAAIEIQAEABGA=</HashCode>
       <FileName>Assets\Scripts\NodeObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Node">
-    <Position X="11" Y="5.75" Width="1.5" />
+    <Position X="8.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAkAIAABAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\NodeObject.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CommandSystem">
-    <Position X="12.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAgAAA=</HashCode>
-      <FileName>Assets\Scripts\Systems\CommandSystem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Command">
-    <Position X="7.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Systems\CommandSystem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CreateNode">
-    <Position X="7.5" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Systems\CommandSystem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="DataSerializer">
-    <Position X="9.25" Y="6.75" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAACAAAAAAAAAAAAAACAAAAAAAAAAACAAAIAA=</HashCode>
       <FileName>Assets\Scripts\Systems\DataSerializer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DelayedMethods">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Systems\DelayedMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DelayedMethods&lt;T&gt;">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Systems\DelayedMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DelayedMethods&lt;T, V&gt;">
+    <Position X="8.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Systems\DelayedMethods.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EventSystem">
-    <Position X="12.75" Y="3.75" Width="1.5" />
+    <Position X="11.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAABAAAAAAAAAAAAAAIAAAAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Systems\EventSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EventSystem&lt;T&gt;">
-    <Position X="12.75" Y="6" Width="1.5" />
+    <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAABAAAAAAAAAAAAAAIAAAAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Systems\EventSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SerializableList&lt;T&gt;">
-    <Position X="11" Y="2.75" Width="1.5" />
+    <Position X="17" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Systems\SerializableList.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ToolManager">
-    <Position X="16.25" Y="0.5" Width="1.5" />
+    <Position X="20.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAQiAQACgiAAADgAAkEAAAACEQAIAgCJQAAIABwgOAA=</HashCode>
+      <HashCode>IgSiEQAiAiAAABEAAkAgAAASESBKAwqBQAAAIAwgOEA=</HashCode>
       <FileName>Assets\Scripts\ToolManager.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Interface Name="ICommand">
+    <Position X="15.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Commands\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Languages">
-    <Position X="11" Y="4.25" Width="1.5" />
+    <Position X="10" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="EventTypes">
-    <Position X="9.25" Y="5" Width="1.5" />
+    <Position X="8.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\enums.cs</FileName>
